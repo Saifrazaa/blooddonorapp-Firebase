@@ -2,12 +2,13 @@
 
 <center style="margin-top:50px">
 <strong style="margin-top:30px;font-size:30px">Please Login To Your Account</strong>
-<div class="input-group" style="margin-top:20px">
+<div id="error"></div>
+<div class="form-group" style="margin-top:20px">
     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
     <input id="email" type="text" class="form-control" name="email" placeholder="Email" required>
 </div>
 
-<div class="input-group" style="margin-top:10px">
+<div class="form-group" style="margin-top:10px">
     <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
     <input id="password" type="password" class="form-control" name="password" placeholder="Password" required>
 </div>
@@ -23,7 +24,15 @@ function userlogin()
   var email=document.getElementById('email').value;
   var password=document.getElementById("password").value;
   console.log(email,password);
+  firebase.auth().signInWithEmailAndPassword(email,password).then(function(response){
+    window.location="";
+  }).catch(function(error){
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    var error=document.getElementById('error');
+    error.innerHTML="<p class='alert alert-danger'>"+errorMessage+"</p>";
 
+  })
 }
 
 </script>
