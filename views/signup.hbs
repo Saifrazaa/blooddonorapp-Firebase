@@ -36,17 +36,20 @@
 
 </select>
 </div>
+<input type="hidden" id="finder-latlong" />
 <button class="btn btn-info" style="margin-top:20px" onclick="createuser()" >Sign Up</button>
 </center>
 <script>
 // Initialize Firebase
 function createuser(){
 
-    var email=document.getElementById('email').value;
-    var password=document.getElementById('password').value;
-    var address=document.getElementById('address').value;
-    var phoneno=document.getElementById('phoneno').value;
+    var email     =document.getElementById('email').value;
+    var password  =document.getElementById('password').value;
+    var address   =document.getElementById('address').value;
+    var phoneno   =document.getElementById('phoneno').value;
     var bloodgroup=document.getElementById('bloodgroup').value;
+    var location  =document.getElementById('finder-latlong').value;
+    console.log(location);
 
     console.log(email,password);
     var firebaseref=firebase.auth().createUserWithEmailAndPassword(email, password).then(function(response){

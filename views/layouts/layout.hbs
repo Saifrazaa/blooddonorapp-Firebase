@@ -42,7 +42,7 @@
 		var lati=pos.coords.latitude;
 		var longi=pos.coords.longitude;
 		var coords=lati+","+longi;
-
+		var finderlatlong=document.getElementById('finder-latlong').value=coords;
     var x=document.getElementById("map").setAttribute('src','https://www.google.com/maps/embed/v1/place?key=AIzaSyDQ_YowBXrKttpiLOsY1w41ArSbXsjCcG4&q='+coords);
 		var y=document.getElementById("office").setAttribute('src','https://www.google.com/maps/embed/v1/place?key=AIzaSyDQ_YowBXrKttpiLOsY1w41ArSbXsjCcG4&q='+office);
 		//x.innerHTML="<iframe id='google_map' width='1000' height='1000' frameborder='0' style='border:0' src='https://www.google.com/maps/embed/v1/place?key=AIzaSyDQ_YowBXrKttpiLOsY1w41ArSbXsjCcG4&q='+coords allowfullscreen> </iframe>"
