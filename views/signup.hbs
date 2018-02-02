@@ -1,0 +1,58 @@
+
+<center style="margin-top:50px">
+  <hr>
+  <h1>Sign Up to Get Start</h1>
+  <hr>
+
+<div style="margin-top:30px" class="form-group" style="margin-top:20px">
+    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+  Email :  <input id="email" type="text" class="form-control" name="email" placeholder="Email" required>
+</div>
+
+<div class="form-group" style="margin-top:10px">
+    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+  Password :<input id="password" type="password" class="form-control" name="password" placeholder="Password" required>
+</div>
+<div class="form-group" style="margin-top:20px">
+    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+  Address:  <input id="address" type="text" class="form-control" name="email" placeholder="Address" required>
+</div>
+
+<div class="form-group" style="margin-top:10px">
+    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+  Phone No:  <input id="phoneno" type="text" class="form-control" name="password" placeholder="Phone Number" required>
+</div>
+<div class="form-group" style="margin-top:10px">
+  Blood Group :<select style="cursor:pointer" class="form-control" required name="type">
+	            <option name="mechanic">A</option>
+	            <option name="electrician">B</option>
+	            <option name="plumber">O</option>
+	            <option name="photographer">AB</option>
+
+</select>
+</div>
+<button class="btn btn-info" style="margin-top:20px" onclick="createuser()" >Sign Up</button>
+
+</center>
+
+<script>
+// Initialize Firebase
+
+  function createuser()
+  {
+    var email=document.getElementById('email').value;
+    var password=document.getElementById('password').value;
+    console.log(email,password);
+    var firebaseref=firebase.auth().createUserWithEmailAndPassword(email, password).then(function(response){
+      window.location="/";
+    }).catch(function(error) {
+  window.location="/signup";
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    console.log(errorMessage);
+    // ...
+
+  });
+
+  }
+  </script>

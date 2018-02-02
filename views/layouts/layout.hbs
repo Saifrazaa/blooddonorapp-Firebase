@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>{{title}}</title>
+	<link rel="icon" href="/images/icon.png" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Free HTML5 Website Template by FreeHTML5.co" />
+	<meta name="keywords" content="free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
+	<meta name="author" content="FreeHTML5.co" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+	<body class="container">
+		<script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+		<script>
+		  // Initialize Firebase
+		  var config = {
+		    apiKey: "AIzaSyBstq20vaaHs8DANRBIkbskHUHk-YWCDAo",
+		    authDomain: "blooddonorapp-262c1.firebaseapp.com",
+		    databaseURL: "https://blooddonorapp-262c1.firebaseio.com",
+		    projectId: "blooddonorapp-262c1",
+		    storageBucket: "blooddonorapp-262c1.appspot.com",
+		    messagingSenderId: "253407415755"
+		  };
+		  firebase.initializeApp(config);
+		</script>
+		{{{ body }}}
+	</body>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script>
+	$(document).ready(function(){
+	function userposition(pos){
+		var officelati=24.8602;
+		var officelongi=67.0699;
+		var office=officelati+","+officelongi;
+		var lati=pos.coords.latitude;
+		var longi=pos.coords.longitude;
+		var coords=lati+","+longi;
+
+    var x=document.getElementById("map").setAttribute('src','https://www.google.com/maps/embed/v1/place?key=AIzaSyDQ_YowBXrKttpiLOsY1w41ArSbXsjCcG4&q='+coords);
+		var y=document.getElementById("office").setAttribute('src','https://www.google.com/maps/embed/v1/place?key=AIzaSyDQ_YowBXrKttpiLOsY1w41ArSbXsjCcG4&q='+office);
+		//x.innerHTML="<iframe id='google_map' width='1000' height='1000' frameborder='0' style='border:0' src='https://www.google.com/maps/embed/v1/place?key=AIzaSyDQ_YowBXrKttpiLOsY1w41ArSbXsjCcG4&q='+coords allowfullscreen> </iframe>"
+	}
+	if(navigator.geolocation){
+		navigator.geolocation.getCurrentPosition(userposition);
+	}
+	else {
+		x.innerHTML="Your Current Location Is Not Available";
+		y.innerHTML="Your Current Location Is Not Available";
+	}
+	});
+	</script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</html>
