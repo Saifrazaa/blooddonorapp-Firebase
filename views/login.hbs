@@ -13,19 +13,20 @@
     <input id="password" type="password" class="form-control" name="password" placeholder="Password" required>
 </div>
 <button class="btn btn-info" style="margin-top:20px" onclick="userlogin()" >Log In</button>
+<alert class="alert alert-success" style="margin-top:20px;margin-left:20px;margin-top:15px" id="pleasewait">please wait.....</alert>
 <p style="margin-top:20px">Don't have account?<a  href="/users/signup" class="text text-success" >Sign Up</a></p>
 </center>
 
 <script>
-
-
+$('#pleasewait').hide();
 function userlogin()
 {
   var email=document.getElementById('email').value;
   var password=document.getElementById("password").value;
   console.log(email,password);
   firebase.auth().signInWithEmailAndPassword(email,password).then(function(response){
-    window.location="";
+    $("#pleasewait").show()
+    window.location="/find-donors";
   }).catch(function(error){
     var errorCode = error.code;
     var errorMessage = error.message;

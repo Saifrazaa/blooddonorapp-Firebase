@@ -24,7 +24,8 @@ router.get('/donate-blood', function(req, res, next) {
 router.get('/signup', function(req, res, next) {
   res.render('signup', { title: 'Sign Up To Get Start' });
 });
-router.get('/find-donors',checkauthentication,function(req, res, next) {
+
+router.get('/find-donors',function(req, res, next) {
   res.render('yourblood-group', { title: 'Blood Donors' });
 });
 module.exports = router;

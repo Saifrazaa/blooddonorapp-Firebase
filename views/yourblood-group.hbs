@@ -1,4 +1,5 @@
 
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGpo9wQlW01ez9Ty30-0VqZU4_9_MWq2w"></script>
 <center style="margin-top:100px">
   <div class="container" id="bloodgroupdiv">
     <i class="alert alert-primary" style="font-size:30px">What is Your Blood Group?</i>
@@ -12,9 +13,13 @@
   </div>
   <center style="margin-top:30px"> <i class="alert alert-info" style="text-align:center;font-family:algerian;font-size:30px" id="pleasewait">Please Wait......</i></center>
   <div id="donors">
-      <table class="table table-bordered table-hover table-striped" id="donors-data">
-      <center><h1 style="margin-top:30px" class="alert alert-warning">Nearby Donors</h1>
-      <!-- <th>Sr.No</th><th>Donor Name</th><th>Donor Address</th><th>Donor Mobile-Number</th><th>Donor Blood Group</th> -->
+    <center><h1 style="margin-top:30px" class="alert alert-warning">Nearby Donors</h1>
+      <div ><div id="map" style="height: 500px; width: auto;"></div>
+        <hr>
+        <h3 class="text text-success">Donor's Details</h3>
+        <hr>
+      <table class="table table-bordered table-hover table-striped" id="donors-data" style="margin-top:30px">
+        <!-- <th>Sr.No</th><th>Donor Name</th><th>Donor Address</th><th>Donor Mobile-Number</th><th>Donor Blood Group</th> -->
     </table>
   </div>
 </center>
@@ -32,26 +37,55 @@ $(document).ready(function(){
         var objects=response.val();
         var keys=Object.keys(objects);
         var bloodgroup=document.getElementById('bloodgroup').value;
-        // console.log(bloodgroup);
+      var arr=[];
         for(var i=0 ;i<keys.length ;i++){
               var t=keys[i];
               var dbloodgroup=objects[t].bloodgroup;
               var mobilenumber=objects[t].phoneno;
               var dname=objects[t].username;
+              var latitudes=objects[t].latitude;
+              var longitudes=objects[t].longitude;
+              console.log(longitudes);
               var daddress=objects[t].address;
-              console.log(dbloodgroup);
               if(bloodgroup === "AB"){
-                  $("#donors").show();
+                $("#donors").show();
                 donorsdata.innerHTML+="<td>"+i+"</td><td>"+dname+"</td><td>"+daddress+"</td><td>"+mobilenumber+"</td><td>"+dbloodgroup+"</td>";
+                var locations=[daddress,latitudes,longitudes];
+                  arr.push(locations);
                 $("#pleasewait").hide();
               }
               else if(bloodgroup===dbloodgroup || dbloodgroup==="O")
               {
-                  $("#donors").show();
+                $("#donors").show();
                 donorsdata.innerHTML+="<td>"+i+"</td><td>"+dname+"</td><td>"+daddress+"</td><td>"+mobilenumber+"</td><td>"+dbloodgroup+"</td>";
+                var locations=[daddress,latitudes,longitudes];
+                  arr.push(locations);
                 $("#pleasewait").hide();
               }
+            }
+            console.log(arr);
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 11,
+                center: new google.maps.LatLng(24.810743499999997,67.0437712),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
 
+            var infowindow = new google.maps.InfoWindow();
+
+            var marker, i;
+
+            for (i = 0; i < arr.length; i++) {
+                marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(arr[i][1], arr[i][2]),
+                    map: map
+                });
+
+                google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                    return function () {
+                        infowindow.setContent(locations[i][0]);
+                        infowindow.open(map, marker);
+                    }
+                })(marker, i));
             }
           }
       function geterror(error){

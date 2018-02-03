@@ -46,44 +46,49 @@
 $("#signupalert").hide();
 
 function createuser(){
+  var username  =document.getElementById('username').value;
+  var email     =document.getElementById('email').value;
+  var password  =document.getElementById('password').value;
+  var address   =document.getElementById('address').value;
+  var phoneno   =document.getElementById('phoneno').value;
+  var bloodgroup=document.getElementById('bloodgroup').value;
+  function userposition(pos){
+  		var lati=pos.coords.latitude;
+  		var longi=pos.coords.longitude;
 
-    var username  =document.getElementById('username').value;
-    var email     =document.getElementById('email').value;
-    var password  =document.getElementById('password').value;
-    var address   =document.getElementById('address').value;
-    var phoneno   =document.getElementById('phoneno').value;
-    var bloodgroup=document.getElementById('bloodgroup').value;
-    var location  =document.getElementById('finder-latlong').value;
-    console.log(location);
+          var firebaseref=firebase.auth().createUserWithEmailAndPassword(email, password).then(function(response){
+            var adduser=firebase.database().ref();
+            var user={
+              username:username,
+              password:password,
+              address:address,
+              phoneno:phoneno,
+              bloodgroup:bloodgroup,
+              latitude:lati,
+              longitude:longi
 
-    console.log(email,password);
-    var firebaseref=firebase.auth().createUserWithEmailAndPassword(email, password).then(function(response){
-      var adduser=firebase.database().ref();
-      var user={
-        username:username,
-        password:password,
-        address:address,
-        phoneno:phoneno,
-        bloodgroup:bloodgroup,
-        location:location
-      }
-      $("#signupalert").show();
-      adduser.child("users").push().set(user).then(function(response){
-        window.location="/";
-      }).catch(function(){
-        var errorMessage=error.message;
-        console.log(errorMessage);
-      });
-    }).catch(function(error) {
+            }
+            $("#signupalert").show();
+            adduser.child("users").push().set(user).then(function(response){
+              window.location="/";
+            }).catch(function(){
+              var errorMessage=error.message;
+              console.log(errorMessage);
+            });
+          }).catch(function(error) {
 
-    var errorCode = error.code;
-    var errorMessage = error.message;
-  var error=document.getElementById('errors');
-  error.innerHTML="<p class='alert alert-danger'>"+errorMessage+"</p>";
+          var errorCode = error.code;
+          var errorMessage = error.message;
+        var error=document.getElementById('errors');
+        error.innerHTML="<p class='alert alert-danger'>"+errorMessage+"</p>";
 
-  });
+        });
 
+    }
+  	if(navigator.geolocation){
+  		navigator.geolocation.getCurrentPosition(userposition);
 
+    }
 }
 
 
