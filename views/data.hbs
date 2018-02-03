@@ -1,0 +1,90 @@
+
+<center style="margin-top:50px">
+  <hr>
+  <h1 class="alert alert-info">Please Enter Your Details</h1>
+  <hr>
+  <div id="errors"></div>
+  <hr>
+  <div style="margin-top:30px" class="form-group" style="margin-top:20px">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+    <input id="username" type="text" class="form-control" name="email" placeholder="Username"  required>
+  </div>
+<div style="margin-top:30px" class="form-group" style="margin-top:20px">
+    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+<input id="email" type="text" class="form-control" name="email" placeholder="Email"  required>
+</div>
+
+<div class="form-group" style="margin-top:10px">
+    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+<input id="password" type="password" class="form-control" name="password" placeholder="Password"  required>
+</div>
+<div class="form-group" style="margin-top:20px">
+    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+    <input id="address" type="text" class="form-control" name="email" placeholder="Address"  required>
+</div>
+
+<div class="form-group" style="margin-top:10px">
+    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+<input id="phoneno" type="text" class="form-control" name="password" placeholder="Phone Number"  required>
+</div>
+<div class="form-group" style="margin-top:10px">
+<i class="alert alert-success">Blood Group :</i><select style="cursor:pointer;margin-top:20px" class="form-control" required name="type" id="bloodgroup">
+	            <option name="mechanic" id="A" value="A">A</option>
+	            <option name="electrician" id="B" value="B">B</option>
+	            <option name="plumber" id="O" value="O">O</option>
+	            <option name="photographer" id="AB" value="AB">AB</option>
+
+</select>
+</div>
+<input type="hidden" id="finder-latlong" />
+<button class="btn btn-info" style="margin-top:20px" onclick="createuser()" >Submit Details</button>
+<div style="margin-top:20px"><alert class="alert alert-info" id="signupalert">Submitting Your Record.....</alert></div>
+</center>
+<script>
+// Initialize Firebase
+
+$("#signupalert").hide();
+
+function createuser(){
+
+    var username  =document.getElementById('username').value;
+    var email     =document.getElementById('email').value;
+    var password  =document.getElementById('password').value;
+    var address   =document.getElementById('address').value;
+    var phoneno   =document.getElementById('phoneno').value;
+    var bloodgroup=document.getElementById('bloodgroup').value;
+    var location  =document.getElementById('finder-latlong').value;
+    console.log(location);
+
+    console.log(email,password);
+    var firebaseref=firebase.auth().createUserWithEmailAndPassword(email, password).then(function(response){
+      var adduser=firebase.database().ref();
+      var user={
+        username:username,
+        password:password,
+        address:address,
+        phoneno:phoneno,
+        bloodgroup:bloodgroup,
+        location:location
+      }
+      $("#signupalert").show();
+      adduser.child("users").push().set(user).then(function(response){
+        window.location="/";
+      }).catch(function(){
+        var errorMessage=error.message;
+        console.log(errorMessage);
+      });
+    }).catch(function(error) {
+
+    var errorCode = error.code;
+    var errorMessage = error.message;
+  var error=document.getElementById('errors');
+  error.innerHTML="<p class='alert alert-danger'>"+errorMessage+"</p>";
+
+  });
+
+
+}
+
+
+  </script>
