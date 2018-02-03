@@ -1,34 +1,34 @@
 
 <center style="margin-top:50px">
   <hr>
-  <h1>Sign Up to Get Start</h1>
+  <h1 class="alert alert-info">Sign Up to Get Start</h1>
   <hr>
   <div id="errors"></div>
   <hr>
   <div style="margin-top:30px" class="form-group" style="margin-top:20px">
       <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-    Username :  <input id="username" type="text" class="form-control" name="email" placeholder="Username" value="saif" required>
+    <input id="username" type="text" class="form-control" name="email" placeholder="Username" value="saif" required>
   </div>
 <div style="margin-top:30px" class="form-group" style="margin-top:20px">
     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-  Email :  <input id="email" type="text" class="form-control" name="email" placeholder="Email" value="saif@gmail.com" required>
+<input id="email" type="text" class="form-control" name="email" placeholder="Email" value="saif@gmail.com" required>
 </div>
 
 <div class="form-group" style="margin-top:10px">
     <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-  Password :<input id="password" type="password" class="form-control" name="password" placeholder="Password" value="saif" required>
+<input id="password" type="password" class="form-control" name="password" placeholder="Password" value="saif" required>
 </div>
 <div class="form-group" style="margin-top:20px">
     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-  Address:  <input id="address" type="text" class="form-control" name="email" placeholder="Address" value="defence" required>
+    <input id="address" type="text" class="form-control" name="email" placeholder="Address" value="defence" required>
 </div>
 
 <div class="form-group" style="margin-top:10px">
     <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-  Phone No:  <input id="phoneno" type="text" class="form-control" name="password" placeholder="Phone Number" value="123" required>
+<input id="phoneno" type="text" class="form-control" name="password" placeholder="Phone Number" value="123" required>
 </div>
 <div class="form-group" style="margin-top:10px">
-  Blood Group :<select style="cursor:pointer" class="form-control" required name="type" id="bloodgroup">
+<select style="cursor:pointer" class="form-control" required name="type" id="bloodgroup">
 	            <option name="mechanic" id="A" value="A">A</option>
 	            <option name="electrician" id="B" value="B">B</option>
 	            <option name="plumber" id="O" value="O">O</option>
@@ -38,11 +38,16 @@
 </div>
 <input type="hidden" id="finder-latlong" />
 <button class="btn btn-info" style="margin-top:20px" onclick="createuser()" >Sign Up</button>
+<div style="margin-top:20px"><alert class="alert alert-info" id="signupalert">Signing Up.....</alert></div>
 </center>
 <script>
 // Initialize Firebase
+
+$("#signupalert").hide();
+
 function createuser(){
 
+    var username  =document.getElementById('username').value;
     var email     =document.getElementById('email').value;
     var password  =document.getElementById('password').value;
     var address   =document.getElementById('address').value;
@@ -53,7 +58,22 @@ function createuser(){
 
     console.log(email,password);
     var firebaseref=firebase.auth().createUserWithEmailAndPassword(email, password).then(function(response){
+      var adduser=firebase.database().ref();
+      var user={
+        username:username,
+        password:password,
+        address:address,
+        phoneno:phoneno,
+        bloodgroup:bloodgroup,
+        location:location
+      }
+      $("#signupalert").show();
+      adduser.child("users").push().set(user).then(function(response){
         window.location="/";
+      }).catch(function(){
+        var errorMessage=error.message;
+        console.log(errorMessage);
+      });
     }).catch(function(error) {
 
     var errorCode = error.code;
@@ -62,16 +82,9 @@ function createuser(){
   error.innerHTML="<p class='alert alert-danger'>"+errorMessage+"</p>";
 
   });
-  var adduser=firebase.database().ref();
-  var user={
-    username:username,
-    password:password,
-    address:address,
-    phoneno:phoneno,
-    bloodgroup:bloodgroup
-  }
-  adduser.child("users").push().set(user);
+
 
 }
+
 
   </script>
