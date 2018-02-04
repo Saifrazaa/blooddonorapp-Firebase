@@ -1,3 +1,18 @@
+<style>
+.loader {
+border: 16px solid #f3f3f3; /* Light grey */
+border-top: 16px solid #3498db; /* Blue */
+border-radius: 50%;
+width: 120px;
+height: 120px;
+animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+</style>
 <center style="margin-top:50px">
 <strong style="margin-top:30px;font-size:30px" class="alert alert-danger">Please Verify Yourself</strong>
 <hr>
@@ -12,7 +27,8 @@
     <input id="password" type="password" class="form-control" style="width:400px" name="password" placeholder="Password" required>
 </div>
 <button class="btn btn-lg btn-primary-outline" style="margin-top:20px" onclick="userlogin()" >Log In</button>
-<alert class="alert alert-success" style="margin-top:20px;margin-left:20px;margin-top:15px" id="pleasewait">please wait.....</alert>
+<div class="loader" id="pleasewait" style="margin-top:100px;margin-bottom:100px"></div>
+
 <p style="margin-top:20px">Don't have account?<a  href="/users/signup" class="text text-success" >Sign Up</a></p>
 </center>
 

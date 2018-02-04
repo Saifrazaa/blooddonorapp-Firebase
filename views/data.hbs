@@ -1,4 +1,18 @@
+<style>
+.loader {
+border: 16px solid #f3f3f3; /* Light grey */
+border-top: 16px solid #3498db; /* Blue */
+border-radius: 50%;
+width: 120px;
+height: 120px;
+animation: spin 2s linear infinite;
+}
 
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+</style>
 <center style="margin-top:50px">
   <hr>
   <h1 class="alert alert-info">Please Enter Your Details</h1>
@@ -40,7 +54,8 @@
 </div>
 <input type="hidden" id="finder-latlong" />
 <button class="btn btn-info" style="margin-top:20px" onclick="createuser()" >Submit Details</button>
-<div style="margin-top:20px"><alert class="alert alert-info" id="signupalert">Submitting Your Record.....</alert></div>
+<div class="loader" id="signupalert" style="margin-top:100px;margin-bottom:100px"></div>
+
 </center>
 <script>
 // Initialize Firebase
@@ -57,9 +72,7 @@ function createuser(){
   function userposition(pos){
   		var lati=pos.coords.latitude;
   		var longi=pos.coords.longitude;
-
-          var firebaseref=firebase.auth().createUserWithEmailAndPassword(email, password).then(function(response){
-            var adduser=firebase.database().ref();
+      var adduser=firebase.database().ref();
             var user={
               username:username,
               password:password,
@@ -73,21 +86,15 @@ function createuser(){
             }
             $("#signupalert").show();
             adduser.child("users").push().set(user).then(function(response){
+              alert("SuccessFully Submitted Your Details");
               window.location="/";
             }).catch(function(){
               var errorMessage=error.message;
               console.log(errorMessage);
             });
-          }).catch(function(error) {
+          }
 
-          var errorCode = error.code;
-          var errorMessage = error.message;
-        var error=document.getElementById('errors');
-        error.innerHTML="<p class='alert alert-danger'>"+errorMessage+"</p><hr>";
 
-        });
-
-    }
   	if(navigator.geolocation){
   		navigator.geolocation.getCurrentPosition(userposition);
 
