@@ -1,4 +1,18 @@
+<style>
+.loader {
+border: 16px solid #f3f3f3; /* Light grey */
+border-top: 16px solid #3498db; /* Blue */
+border-radius: 50%;
+width: 120px;
+height: 120px;
+animation: spin 2s linear infinite;
+}
 
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+</style>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGpo9wQlW01ez9Ty30-0VqZU4_9_MWq2w"></script>
 <center style="margin-top:100px">
   <div class="container" id="bloodgroupdiv">
@@ -11,7 +25,8 @@
     </select>
     <button class="btn btn-info" style="margin-top:30px" id="findbtn">Find</button>
   </div>
-  <center style="margin-top:30px"> <i class="alert alert-info" style="text-align:center;font-family:algerian;font-size:30px" id="pleasewait">Please Wait......</i></center>
+  <div class="loader" id="pleasewait" style="margin-top:200px;margin-bottom:200px"></div>
+
   <div id="donors">
     <center><h1 style="margin-top:30px" class="alert alert-warning">Nearby Donors</h1>
       <div ><div id="map" style="height: 500px; width: auto;"></div>
@@ -30,7 +45,7 @@ $(document).ready(function(){
     $("#findbtn").click(function(){
       $("#pleasewait").show();
       var donorsdata=document.getElementById("donors-data");
-      donorsdata.innerHTML="<th>Sr.No</th><th>Donor Name</th><th>Donor Address</th><th>Donor Mobile Number</th><th>Donor Blood-Group</th><br>"
+      donorsdata.innerHTML="<th>Sr.No</th><th>Donor Name</th><th>Donor Address</th><th>Email Address</th><th>Donor Mobile Number</th><th>Donor Blood-Group</th><br>"
       var firebaseref=firebase.database().ref("users");
       firebaseref.on("value",getresponse,geterror);
       function getresponse(response){
@@ -43,13 +58,14 @@ $(document).ready(function(){
               var dbloodgroup=objects[t].bloodgroup;
               var mobilenumber=objects[t].phoneno;
               var dname=objects[t].username;
+              var email=objects[t].email;
               var latitudes=objects[t].latitude;
               var longitudes=objects[t].longitude;
               console.log(longitudes);
               var daddress=objects[t].address;
               if(bloodgroup === "AB"){
                 $("#donors").show();
-                donorsdata.innerHTML+="<td>"+i+"</td><td>"+dname+"</td><td>"+daddress+"</td><td>"+mobilenumber+"</td><td>"+dbloodgroup+"</td>";
+                donorsdata.innerHTML+="<td>"+i+"</td><td>"+dname+"</td><td>"+daddress+"</td><td>"+email+"</td><td>"+mobilenumber+"</td><td>"+dbloodgroup+"</td>";
                 var locations=[daddress,latitudes,longitudes];
                   arr.push(locations);
                 $("#pleasewait").hide();
@@ -57,7 +73,7 @@ $(document).ready(function(){
               else if(bloodgroup===dbloodgroup || dbloodgroup==="O")
               {
                 $("#donors").show();
-                donorsdata.innerHTML+="<td>"+i+"</td><td>"+dname+"</td><td>"+daddress+"</td><td>"+mobilenumber+"</td><td>"+dbloodgroup+"</td>";
+                donorsdata.innerHTML+="<td>"+i+"</td><td>"+dname+"</td><td>"+daddress+"</td><td>"+email+"</td><td>"+mobilenumber+"</td><td>"+dbloodgroup+"</td>";
                 var locations=[daddress,latitudes,longitudes];
                   arr.push(locations);
                 $("#pleasewait").hide();

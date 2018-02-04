@@ -21,14 +21,31 @@
 
       </head>
       <body>
+        <style>
+        .loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+        </style>
       <center>
             <hr>
           <div id="index">
             <h1 style="margin-top:30px">Welcome to Blood Donor Application </h1>
             <hr>
             <p style="margin-top:40px"><strong>In this application you can find out the blood donors around you</strong> </p>
-            <h3 class="alert alert-info" style="margin-top:40px">You are here right now</h3>
-            <div ><iframe id="map" frameborder="0" style="border:0;height:500px;width:700px" src="" allowfullscreen></iframe></div>
+            <h3 class="alert alert-info" style="margin-top:40px;width:400px">You are here right now</h3>
+            <div class="loader" id="loader" style="margin-top:200px;margin-bottom:200px"></div>
+            <div id="mylocation">
+            <iframe id="map" frameborder="0" style="border:0;height:500px;width:700px" src="" allowfullscreen></iframe></div>
             <div style="margin-top:20px">
               <a class="btn btn-lg btn-warning"    href="/login">Find a Donor</a>
               <a class="btn btn-lg btn-success" href="/donate-blood">Donate Your Blood</a>

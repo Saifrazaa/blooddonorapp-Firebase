@@ -25,14 +25,14 @@
 					<button class="btn btn-primary dropdown-toggle navbar navbar-content" style="color:white;font-size:20px;font-family:algerian" type="button" data-toggle="dropdown">Services
 					  <span class="caret"></span></button>
 					  	<ul class="dropdown-menu">
-					    <li><a class="navbar navbar-content" style="font-size:15px;font-family:algerian" href="#">Find A Donor</a></li>
-					    <li><a class="navbar navbar-content" style="font-size:15px;font-family:algerian" href="#">Donate Your Blood</a></li>
+					    <li><a class="navbar navbar-content" style="font-size:15px;font-family:algerian" href="/login">Find A Donor</a></li>
+					    <li><a class="navbar navbar-content" style="font-size:15px;font-family:algerian" href="/donate-blood">Donate Your Blood</a></li>
 					  	</ul>
 				</div>
 				<a class="navbar navbar-content" style="color:white;font-size:20px;font-family:algerian" href="/signup">Sign Up</a>
 				<a class="navbar navbar-content" style="color:white;font-size:20px;font-family:algerian" href="/login">Log In</a>
-				<a class="navbar navbar-content" style="color:white;font-size:20px;font-family:algerian" href="/login">About Us</a>
-				<a class="navbar navbar-content" style="color:white;font-size:20px;font-family:algerian" href="/login">Contact Us</a>
+				<a class="navbar navbar-content" style="color:white;font-size:20px;font-family:algerian" href="/aboutus">About Us</a>
+				<a class="navbar navbar-content" style="color:white;font-size:20px;font-family:algerian" href="/contactus">Contact Us</a>
 
 
 			</div>
@@ -58,6 +58,8 @@
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script>
 	$(document).ready(function(){
+		$("#mylocation").hide();
+		$("#loader").show();
 	function userposition(pos){
 		var officelati=24.8602;
 		var officelongi=67.0699;
@@ -66,6 +68,8 @@
 		var longi=pos.coords.longitude;
 		var coords=lati+","+longi;
 		var finderlatlong=document.getElementById('finder-latlong').value=coords;
+		$("#loader").hide();
+		$("#mylocation").show();
     var x=document.getElementById("map").setAttribute('src','https://www.google.com/maps/embed/v1/place?key=AIzaSyDQ_YowBXrKttpiLOsY1w41ArSbXsjCcG4&q='+coords);
 		var y=document.getElementById("office").setAttribute('src','https://www.google.com/maps/embed/v1/place?key=AIzaSyDQ_YowBXrKttpiLOsY1w41ArSbXsjCcG4&q='+office);
 		//x.innerHTML="<iframe id='google_map' width='1000' height='1000' frameborder='0' style='border:0' src='https://www.google.com/maps/embed/v1/place?key=AIzaSyDQ_YowBXrKttpiLOsY1w41ArSbXsjCcG4&q='+coords allowfullscreen> </iframe>"

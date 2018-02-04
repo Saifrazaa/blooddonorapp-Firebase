@@ -28,4 +28,10 @@ router.get('/signup', function(req, res, next) {
 router.get('/find-donors',function(req, res, next) {
   res.render('yourblood-group', { title: 'Blood Donors' });
 });
+router.get('/aboutus',function(req, res, next) {
+  res.render('about', { title: 'Blood Donors' });
+});
+router.get('/contactus',function(req, res, next) {
+  res.render('contactus', { title: 'Blood Donors' });
+});
 module.exports = router;
