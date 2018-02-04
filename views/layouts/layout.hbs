@@ -2,6 +2,7 @@
 
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 	<head>
+
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>{{title}}</title>
@@ -15,8 +16,30 @@
   src="http://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
+
+	<nav class="navbar navbar-inverse bg-primary">
+	  <strong style="color:white;font-size:30px;font-family:algerian">Blood Donor App</strong>
+			<div class="navbar nabar-right" >
+				<a class="navbar navbar-content" style="color:white;font-size:20px;font-family:algerian" href="/">Home</a>
+				<div class="dropdown" >
+					<button class="btn btn-primary dropdown-toggle navbar navbar-content" style="color:white;font-size:20px;font-family:algerian" type="button" data-toggle="dropdown">Services
+					  <span class="caret"></span></button>
+					  	<ul class="dropdown-menu">
+					    <li><a class="navbar navbar-content" style="font-size:15px;font-family:algerian" href="#">Find A Donor</a></li>
+					    <li><a class="navbar navbar-content" style="font-size:15px;font-family:algerian" href="#">Donate Your Blood</a></li>
+					  	</ul>
+				</div>
+				<a class="navbar navbar-content" style="color:white;font-size:20px;font-family:algerian" href="/signup">Sign Up</a>
+				<a class="navbar navbar-content" style="color:white;font-size:20px;font-family:algerian" href="/login">Log In</a>
+				<a class="navbar navbar-content" style="color:white;font-size:20px;font-family:algerian" href="/login">About Us</a>
+				<a class="navbar navbar-content" style="color:white;font-size:20px;font-family:algerian" href="/login">Contact Us</a>
+
+
+			</div>
+	</nav>
 </head>
-	<body class="container">
+	<body >
+
 		<script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
 		<script>
 		  // Initialize Firebase
