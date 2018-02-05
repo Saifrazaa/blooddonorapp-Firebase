@@ -41,7 +41,7 @@ function userlogin()
   console.log(email,password);
   firebase.auth().signInWithEmailAndPassword(email,password).then(function(response){
     $("#pleasewait").show()
-    window.location="/find-donors";
+    window.location="/find-donors/"+email;
   }).catch(function(error){
     var errorCode = error.code;
     var errorMessage = error.message;
